@@ -20,7 +20,7 @@ public class DaoApp {
         marcin = Dao2.addUserToDB(marcin);
 
         User karol = new User("karol", "karol@interia.pl","zxcvbn");
-        User Slawek = new User("Slawek", "Slawek@interia.pl","ghjkl;'");
+        User Slawek = new User("Slawek", "Slawek@inters gitia.pl","ghjkl;'");
         User Adam = new User("Adam", "Adam@interia.pl","nxzcvhjgasd");
         User Mariusz = new User("Mariusz", "Mariusz@interia.pl","uytfdgcvbhjkiou8y7gh");
         User Krystian = new User("Krystian", "Krystian@interia.pl","123456uyjthgbf");
