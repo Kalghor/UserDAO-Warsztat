@@ -11,4 +11,3 @@ CREATE TABLE users (
                        PRIMARY KEY(id)
 );
 
-SELECT * FROM users;

@@ -37,9 +37,12 @@ public class User {
 
     @Override
     public String toString() {
-        System.out.print("id = "+  id + ", userName = " + this.getUserName() + ", email = " + this.getEmail() + ", password = " + this.getPassword());
-        //System.out.print("userName = " + this.getUserName() + ", email = " + this.getEmail() + ", password = " + this.getPassword());
-    return "";
+        String result = "id = " + id + ", userName = " + this.getUserName() + ", email = " + this.getEmail() + ", password = " + this.getPassword();
+        //if(this.getUserName() != null & this.getEmail() != null) {
+            return result;
+       // } else {
+        //    return "Objekt jest null'em";
+       // }
     }
 
     public User(String userName, String email, String password){
