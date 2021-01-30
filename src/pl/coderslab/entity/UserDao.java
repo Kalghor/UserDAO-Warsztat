@@ -56,7 +56,6 @@ public class UserDao extends User {
 
     public User read(int userID) {
         User user = new User();
-        int counter = 1;
         try (Connection connection = DBUtils.getConnection("workshop2")) {
             Statement stm = connection.createStatement();
             ResultSet resultSet = stm.executeQuery(allFromUsers);
@@ -70,12 +69,10 @@ public class UserDao extends User {
                     user.toString();
                     return user;
                 } else {
-                    counter++;
-                    if(!resultSet.next()) {
+                    if (!resultSet.next()) {
                         System.out.println("Rekord nie istnieje w bazie");
                     }
                 }
-
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -90,7 +87,6 @@ public class UserDao extends User {
             String email = user.getEmail();
             String password = user.getPassword();
             try (Connection connection = DBUtils.getConnection("workshop2")) {
-                //getExistingUser(user);
                 PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_QUERY);
                 preparedStatement.setString(1, username);
                 preparedStatement.setString(2, email);

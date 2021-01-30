@@ -15,12 +15,12 @@ public class DaoApp {
 //        /*Testowanie addUser*/
         UserDao Dao2 = new UserDao();
         User tomek = new User("tomek", "tomek@wp.pl", "qwerty");
-        User marcin = new User("marcin", "marcin@interia.pl","asddfgg");
-        User karol = new User("karol", "karol@interia.pl","zxcvbn");
-        User Slawek = new User("Slawek", "Slawek@inters gitia.pl","ghjkl;'");
-        User Adam = new User("Adam", "Adam@interia.pl","nxzcvhjgasd");
-        User Mariusz = new User("Mariusz", "Mariusz@interia.pl","uytfdgcvbhjkiou8y7gh");
-        User Krystian = new User("Krystian", "Krystian@interia.pl","123456uyjthgbf");
+        User marcin = new User("marcin", "marcin@interia.pl", "asddfgg");
+        User karol = new User("karol", "karol@interia.pl", "zxcvbn");
+        User Slawek = new User("Slawek", "Slawek@inters gitia.pl", "ghjkl;'");
+        User Adam = new User("Adam", "Adam@interia.pl", "nxzcvhjgasd");
+        User Mariusz = new User("Mariusz", "Mariusz@interia.pl", "uytfdgcvbhjkiou8y7gh");
+        User Krystian = new User("Krystian", "Krystian@interia.pl", "123456uyjthgbf");
         tomek = Dao2.addUserToDB(tomek);
         marcin = Dao2.addUserToDB(marcin);
         karol = Dao2.addUserToDB(karol);
@@ -49,8 +49,9 @@ public class DaoApp {
 //        UserDao userDao = new UserDao();
 //        User[] usersArr = new User[0];
 //        usersArr = userDao.findAll();
-//        for(int i = 0; i < usersArr.length; i++){
+//        for (int i = 0; i < usersArr.length; i++) {
 //            usersArr[i].toString();
+//        }
     }
 }
 
