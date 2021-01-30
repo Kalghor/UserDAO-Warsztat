@@ -14,7 +14,7 @@ public class DBUtils {
     private static final String createDB = "CREATE DATABASE if not exists workshop2 " +
             "CHARACTER SET utf8mb4 " +
             "COLLATE utf8mb4_unicode_ci;";
-    private static final String useDB = "USE workshop2;";
+    private static final String useDB = "USE workshop2";
     private static final String createTable = "CREATE TABLE if not exists users (\n" +
             "id INT(11) AUTO_INCREMENT,\n" +
             "username VARCHAR(255) NOT NULL,\n" +
@@ -33,7 +33,7 @@ public class DBUtils {
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER,DB_PASSWORD);){
             Statement stm = connection.createStatement();
             stm.executeUpdate(createDB);
-            stm.executeUpdate(useDB);
+            stm.executeQuery(useDB);
             stm.executeUpdate(createTable);
         }
     }
