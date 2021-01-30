@@ -37,8 +37,9 @@ public class User {
 
     @Override
     public String toString() {
-        String result = "id = " + id + ", userName = " + this.getUserName() + ", email = " + this.getEmail() + ", password = " + this.getPassword();
+        String result = "id = " + this.id + ", userName = " + this.getUserName() + ", email = " + this.getEmail() + ", password = " + this.getPassword();
         //if(this.getUserName() != null & this.getEmail() != null) {
+        System.out.println(result);
             return result;
        // } else {
         //    return "Objekt jest null'em";
