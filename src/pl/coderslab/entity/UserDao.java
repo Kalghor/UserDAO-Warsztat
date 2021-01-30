@@ -90,7 +90,7 @@ public class UserDao extends User {
                 PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_QUERY);
                 preparedStatement.setString(1, username);
                 preparedStatement.setString(2, email);
-                preparedStatement.setString(3, hashPassword(password));
+                preparedStatement.setString(3, password);
                 preparedStatement.setInt(4, id);
                 preparedStatement.executeUpdate();
             } catch (SQLException throwables) {
