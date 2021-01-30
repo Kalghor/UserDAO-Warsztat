@@ -7,14 +7,14 @@ import java.util.Arrays;
 
 public class DaoApp {
     public static void main(String[] args) {
-        try {
-            DBUtils.createDB();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        /*Testowanie addUser*/
+//        try {
+//            DBUtils.createDB();
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        }
+//        /*Testowanie addUser*/
 //        UserDao Dao2 = new UserDao();
-//        User tomek = new User("tomek", "tomek@wp.pl","qwerty");
+        User tomek = new User("tomek", "tomek@wp.pl", "qwerty");
 //        User marcin = new User("marcin", "marcin@interia.pl","asddfgg");
 //        User karol = new User("karol", "karol@interia.pl","zxcvbn");
 //        User Slawek = new User("Slawek", "Slawek@inters gitia.pl","ghjkl;'");
@@ -28,23 +28,22 @@ public class DaoApp {
 //        Adam = Dao2.addUserToDB(Adam);
 //        Mariusz = Dao2.addUserToDB(Mariusz);
 //        Krystian = Dao2.addUserToDB(Krystian);
-        /*----------------------------------------------*/
+//        /*----------------------------------------------*/
         /*Testowanie read*/
 //        UserDao userdao1 = new UserDao();
-//        User test = userdao1.read(2);
-//        String result = test.toString();
-//        System.out.println(result);
-//        int id = tomek.getId();
-//        System.out.println(id);
+//        User test = userdao1.read(1);
         /*----------------------------------------------*/
         /*Testowanie update*/
-//        User konrad = new User("Konrad", "konrad@o2.pl","ksjdfhsdf");
-//        UserDao userDao = new UserDao();
-//          userDao.update(tomek);
-        /*----------------------------------------------*/
+        UserDao userDao = new UserDao();
+        tomek = userDao.read(1);
+        tomek.setUserName("konrad");
+        tomek.setEmail("konrad@o2.pl");
+        userDao.update(tomek);
+        userDao.read(1);
+//        /*----------------------------------------------*/
         /*Testowanie delete*/
 //        UserDao userDao = new UserDao();
-//        userDao.delete(12);
+//        userDao.delete(1);
         /*----------------------------------------------*/
         /*Testowanie findAll*/
 //        UserDao userDao = new UserDao();
@@ -52,6 +51,6 @@ public class DaoApp {
 //        usersArr = userDao.findAll();
 //        for(int i = 0; i < usersArr.length; i++){
 //            usersArr[i].toString();
-//        }
     }
 }
+
