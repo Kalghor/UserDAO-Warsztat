@@ -1,5 +1,9 @@
-package pl.coderslab.entity;
+import pl.coderslab.entity.ConsoleColors;
+import pl.coderslab.entity.DBUtils;
+import pl.coderslab.entity.User;
+import pl.coderslab.entity.UserDao;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -9,6 +13,15 @@ public class App {
     public static final String PATTERN_EMAIL = "[_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.([a-zA-Z]{2,}){1}";
     public static final String PATTERN_PASSWORD = "(^[A-Z])[A-Za-z0-9]{3,15}";
     public static final String PATTERN_USERNAME = "[A-Za-z0-9_-]{3,16}";
+
+    public static void main(String[] args) {
+        try {
+            DBUtils.createDB();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        App.run();
+    }
 
     public static void run() {
         UserDao userDao = new UserDao();
