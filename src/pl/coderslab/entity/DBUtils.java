@@ -8,7 +8,6 @@ import java.sql.Statement;
 public class DBUtils {
     private static final String DB_URL = "jdbc:mysql://localhost:3306";
     private static final String DB_PARAM = "?useSSL=false&characterEncoding=utf8";
-    private static final String DB_NAME = "/workshop2";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "coderslab";
     private static final String createDB = "CREATE DATABASE if not exists workshop2 " +
