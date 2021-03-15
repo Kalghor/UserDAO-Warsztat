@@ -118,9 +118,10 @@ public class UserDao extends User {
                 usersArr = addToArray(user, usersArr);
                 user = new User();
             }
-            for (int i = 0; i < usersArr.length; i++) {
-                usersArr[i].toString();
-            }
+//            for (int i = 0; i < usersArr.length; i++) {
+//
+//                usersArr[i].toString();
+//            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -138,17 +139,11 @@ public class UserDao extends User {
         try (Connection connection = DBUtils.getConnection("workshop2")) {
             Statement stm = connection.createStatement();
             ResultSet resultSet = stm.executeQuery(SELECT_USER + "\'" + user.getEmail() + "\'");
-//            boolean exist = ;
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 if (user.getEmail().equals(resultSet.getString("email"))) {
                     result = true;
                 }
             }
-//            while (resultSet.next()) {
-//                if (user.getEmail().equals(resultSet.getString("email"))) {
-//                    result = true;
-//                }
-//            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -173,5 +168,40 @@ public class UserDao extends User {
 
     public String hashPassword(String password) {
         return BCrypt.hashpw(password, BCrypt.gensalt());
+    }
+
+    public void ShowAllUsers(User[] usersArr) {
+        int maxLengthOfUsersId = 0;
+        int maxLengthOfUsersName = 0;
+        int maxLengthOfUsersEmail = 0;
+        for (int i = 0; i < usersArr.length; i++) {
+            String userId = String.valueOf(usersArr[i].getId());
+            String userName = usersArr[i].getUserName();
+            String userEmail = usersArr[i].getEmail();
+            if (maxLengthOfUsersId < userId.length()) {
+                maxLengthOfUsersId = userId.length();
+            }
+            if (maxLengthOfUsersName < userName.length()) {
+                maxLengthOfUsersName = userName.length();
+            }
+//            if (maxLengthOfUsersEmail < userEmail.length()) {
+//                maxLengthOfUsersEmail = userEmail.length();
+//            }
+        }
+        for (int i = 0; i < usersArr.length; i++) {
+            String userId = String.valueOf(usersArr[i].getId());
+            if(usersArr[i].getId() < 10){
+                userId = "0" + String.valueOf(usersArr[i].getId());
+            }
+            String userName = usersArr[i].getUserName();
+            int LengthOfUserID = userId.length();
+            int LengthOfUserName = userName.length();
+//            int LengthOfUserID = usersArr[i].getId();
+            String result = "id = "
+                    + userId + "," + "".replace("", " ".repeat(maxLengthOfUsersId - LengthOfUserID + 2))
+                    + "userName = " + usersArr[i].getUserName() + "," + "".replace("", " ".repeat(maxLengthOfUsersName - LengthOfUserName + 2))
+                    + "email = " + usersArr[i].getPassword();
+            System.out.println(result);
+        }
     }
 }

@@ -10,4 +10,3 @@ CREATE TABLE users (
                        password VARCHAR(60) NOT NULL,
                        PRIMARY KEY(id)
 );
-SELECT * FROM users WHERE id = 3;
