@@ -6,7 +6,6 @@ public class User {
     private String email;
     private String password;
 
-    // zastanowic sie jak zmienic id zeby bylo wieksze od 0 (zaciagniete z bazy)
     public void setId(int id) {
         this.id = id;
     }
@@ -15,7 +14,6 @@ public class User {
         this.userName = userName;
     }
 
-    //poszukac walidacji emaila
     public void setEmail(String email) {
         this.email = email;
     }
@@ -36,7 +34,6 @@ public class User {
         return email;
     }
 
-    //zastanowic sie czy geter do hasla zostaje
     public String getPassword() {
         return password;
     }

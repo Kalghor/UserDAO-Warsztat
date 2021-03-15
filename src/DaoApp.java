@@ -1,3 +1,4 @@
+import pl.coderslab.entity.App;
 import pl.coderslab.entity.DBUtils;
 import pl.coderslab.entity.User;
 import pl.coderslab.entity.UserDao;
@@ -20,7 +21,7 @@ public class DaoApp {
 //        User Slawek = new User("Slawek", "Slawek@inters gitia.pl", "ghjkl;'");
 //        User Adam = new User("Adam", "Adam@interia.pl", "nxzcvhjgasd");
 //        User Mariusz = new User("Mariusz", "Mariusz@interia.pl", "uytfdgcvbhjkiou8y7gh");
-//        User Krystian = new User("Krystian", "Krystian@interia.pl", "123456uyjthgbf");
+//        User Krystian = new User("Krystian", "Kstian@interia.pl", "123456uyjthgbf");
 //        Dao2.addUserToDB(tomek);
 //        Dao2.addUserToDB(marcin);
 //        Dao2.addUserToDB(karol);
@@ -46,9 +47,10 @@ public class DaoApp {
 //        userDao.delete(11112);
         /*----------------------------------------------*/
         /*Testowanie findAll*/
-        UserDao userDao = new UserDao();
-        User[] usersArr = userDao.findAll();
-        userDao.ShowAllUsers(usersArr);
+//        UserDao userDao = new UserDao();
+//        User[] usersArr = userDao.findAll();
+//        userDao.ShowAllUsers(usersArr);
+        App.run();
     }
 
 

@@ -78,7 +78,7 @@ public class UserDao extends User {
                 PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_USER_QUERY);
                 preparedStatement.setString(1, username);
                 preparedStatement.setString(2, email);
-                preparedStatement.setString(3, password);
+                preparedStatement.setString(3, hashPassword(password));
                 preparedStatement.setInt(4, id);
                 preparedStatement.executeUpdate();
             } catch (SQLException throwables) {
@@ -173,20 +173,15 @@ public class UserDao extends User {
     public void ShowAllUsers(User[] usersArr) {
         int maxLengthOfUsersId = 0;
         int maxLengthOfUsersName = 0;
-        int maxLengthOfUsersEmail = 0;
         for (int i = 0; i < usersArr.length; i++) {
             String userId = String.valueOf(usersArr[i].getId());
             String userName = usersArr[i].getUserName();
-            String userEmail = usersArr[i].getEmail();
             if (maxLengthOfUsersId < userId.length()) {
                 maxLengthOfUsersId = userId.length();
             }
             if (maxLengthOfUsersName < userName.length()) {
                 maxLengthOfUsersName = userName.length();
             }
-//            if (maxLengthOfUsersEmail < userEmail.length()) {
-//                maxLengthOfUsersEmail = userEmail.length();
-//            }
         }
         for (int i = 0; i < usersArr.length; i++) {
             String userId = String.valueOf(usersArr[i].getId());
@@ -196,7 +191,6 @@ public class UserDao extends User {
             String userName = usersArr[i].getUserName();
             int LengthOfUserID = userId.length();
             int LengthOfUserName = userName.length();
-//            int LengthOfUserID = usersArr[i].getId();
             String result = "id = "
                     + userId + "," + "".replace("", " ".repeat(maxLengthOfUsersId - LengthOfUserID + 2))
                     + "userName = " + usersArr[i].getUserName() + "," + "".replace("", " ".repeat(maxLengthOfUsersName - LengthOfUserName + 2))
