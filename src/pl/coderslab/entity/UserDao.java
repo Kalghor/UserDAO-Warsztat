@@ -25,7 +25,7 @@ public class UserDao extends User {
                 ResultSet resultSet = stm.executeQuery(SELECT_USER + "\'" + user.getEmail() + "\'");
                 resultSet.next();
                 user.setId(resultSet.getInt("id"));
-                System.out.println("Uzytkownik o id = " + user.getId() + " juz znajduje sie w bazie.");
+                System.out.println(ConsoleColors.PURPLE_BRIGHT + "Uzytkownik o id = " + user.getId() + " juz znajduje sie w bazie.");
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -40,7 +40,7 @@ public class UserDao extends User {
                 if (rs.next()) {
                     user.setId(rs.getInt(1));
                 }
-                System.out.println("Dodano uzytkownika o id = " + user.getId());
+                System.out.println(ConsoleColors.PURPLE_BRIGHT + "Dodano uzytkownika o id = " + user.getId());
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -60,7 +60,7 @@ public class UserDao extends User {
                 user.toString();
                 return user;
             } else {
-                System.out.println("Rekord nie istnieje w bazie");
+                System.out.println(ConsoleColors.PURPLE_BRIGHT +  "Rekord nie istnieje w bazie");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -85,7 +85,7 @@ public class UserDao extends User {
                 throwables.printStackTrace();
             }
         } else {
-            System.out.println("Taki uzytwnik juz istnieje w bazie");
+            System.out.println(ConsoleColors.PURPLE_BRIGHT + "Taki uzytwnik juz istnieje w bazie");
         }
     }
 
@@ -95,12 +95,12 @@ public class UserDao extends User {
                 PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER_QUERY);
                 preparedStatement.setInt(1, userId);
                 preparedStatement.executeUpdate();
-                System.out.println("Usunieto rekord z bazy");
+                System.out.println(ConsoleColors.PURPLE_BRIGHT + "Usunieto rekord z bazy");
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
         } else {
-            System.out.println("Taki rekord nie istnieje w bazie!");
+            System.out.println(ConsoleColors.PURPLE_BRIGHT + "Taki rekord nie istnieje w bazie!");
         }
     }
 
@@ -118,10 +118,6 @@ public class UserDao extends User {
                 usersArr = addToArray(user, usersArr);
                 user = new User();
             }
-//            for (int i = 0; i < usersArr.length; i++) {
-//
-//                usersArr[i].toString();
-//            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -195,6 +191,11 @@ public class UserDao extends User {
                     + userId + "," + "".replace("", " ".repeat(maxLengthOfUsersId - LengthOfUserID + 2))
                     + "userName = " + usersArr[i].getUserName() + "," + "".replace("", " ".repeat(maxLengthOfUsersName - LengthOfUserName + 2))
                     + "email = " + usersArr[i].getPassword();
+            if(i % 2 == 0){
+                result = ConsoleColors.BLUE_BRIGHT + result;
+            } else if(i % 1 == 0){
+                result = ConsoleColors.YELLOW_BRIGHT + result;
+            }
             System.out.println(result);
         }
     }

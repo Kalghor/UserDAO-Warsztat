@@ -5,33 +5,26 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class App {
-    //    public static final String ADD_USER = "Add User";
-//    public static final String REMOVE_USER = "Remove User";
-//    public static final String UPDATE_USER = "Update User";
-//    public static final String SHOW_USER = "Show User";
-//    public static final String SHOW_ALL_USERS = "Show ALL Users";
     public static final String[] MENU_OPTIONS = {"Add User", "Remove User", "Update User", "Show User", "Show all Users","Quit"};
     public static final String PATTERN_EMAIL = "[_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.([a-zA-Z]{2,}){1}";
     public static final String PATTERN_PASSWORD = "(^[A-Z])[A-Za-z0-9]{3,15}";
     public static final String PATTERN_USERNAME = "[A-Za-z0-9_-]{3,16}";
 
     public static void run() {
-        Scanner scan = new Scanner(System.in);
         UserDao userDao = new UserDao();
         boolean primaryLoop = true;
         while (primaryLoop) {
+            Scanner scan = new Scanner(System.in);
             showMenu();
             System.out.println("\n" + "Select an option: ");
             String userOption = scan.nextLine();
-            if(userOption.toLowerCase().equals("quit")){
-//                primaryLoop = false;
-                break;
-            }
             switch (userOption.toLowerCase()) {
                 case "1":
                 case "add user": {
                     User user = createUser();
+                    System.out.println("");
                     userDao.addUserToDB(user);
+                    System.out.println("");
                     break;
                 }
                 case "2":
@@ -41,7 +34,9 @@ public class App {
                         scan.next();
                     }
                     int id = scan.nextInt();
+                    System.out.println("");
                     userDao.delete(id);
+                    System.out.println("");
                     break;
                 }
                 case "3":
@@ -53,7 +48,9 @@ public class App {
                     int id = scan.nextInt();
                     User user = createUser();
                     user.setId(id);
+                    System.out.println("");
                     userDao.update(user);
+                    System.out.println("");
                     break;
                 }
                 case "4":
@@ -63,12 +60,16 @@ public class App {
                         scan.next();
                     }
                     int id = scan.nextInt();
+                    System.out.println("");
                     userDao.read(id);
+                    System.out.println("");
                     break;
                 }
                 case "5":
                 case "show all users": {
-                    userDao.findAll();
+                    System.out.println("");
+                    userDao.ShowAllUsers(userDao.findAll());
+                    System.out.println("");
                     break;
                 }
                 case "6":
@@ -78,6 +79,7 @@ public class App {
                 }
                 default:{
                     System.out.println("Select correct option.\n");
+                    break;
                 }
             }
         }
@@ -85,7 +87,7 @@ public class App {
 
     private static void showMenu() {
         for (int i = 0; i < MENU_OPTIONS.length; i++) {
-            System.out.println((i + 1) + ". " + MENU_OPTIONS[i]);
+            System.out.println(ConsoleColors.RED_BRIGHT + (i + 1) + ". " + MENU_OPTIONS[i]);
         }
     }
 

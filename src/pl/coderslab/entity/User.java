@@ -41,7 +41,7 @@ public class User {
     @Override
     public String toString() {
         String result = "id = " + this.id + ", userName = " + this.getUserName() + ", email = " + this.getEmail();
-        System.out.println(result);
+        System.out.println(ConsoleColors.PURPLE_BRIGHT + result);
         return result;
     }
 
