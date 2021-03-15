@@ -53,22 +53,14 @@ public class UserDao extends User {
             Statement stm = connection.createStatement();
             ResultSet resultSet = stm.executeQuery(SELECT_USER_BY_ID + "\'" + userID + "\'");
             if (resultSet.next()) {
-//                String index = resultSet.getString("id");
-//                if (index.equals(String.valueOf(userID))) {
                 user.setId(Integer.parseInt(resultSet.getString("id")));
                 user.setUserName(resultSet.getString("username"));
                 user.setEmail(resultSet.getString("email"));
+                user.setPassword(resultSet.getString("password"));
                 user.toString();
-
                 return user;
-//                } else {
-//                    if (!resultSet.next()) {
-//                        System.out.println("Rekord nie istnieje w bazie");
-//                    }
-//                }
             } else {
                 System.out.println("Rekord nie istnieje w bazie");
-
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -126,6 +118,9 @@ public class UserDao extends User {
                 usersArr = addToArray(user, usersArr);
                 user = new User();
             }
+            for (int i = 0; i < usersArr.length; i++) {
+                usersArr[i].toString();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -142,12 +137,18 @@ public class UserDao extends User {
         boolean result = false;
         try (Connection connection = DBUtils.getConnection("workshop2")) {
             Statement stm = connection.createStatement();
-            ResultSet resultSet = stm.executeQuery(SELECT_ALL_FROM_USERS);
-            while (resultSet.next()) {
+            ResultSet resultSet = stm.executeQuery(SELECT_USER + "\'" + user.getEmail() + "\'");
+//            boolean exist = ;
+            if(resultSet.next()){
                 if (user.getEmail().equals(resultSet.getString("email"))) {
                     result = true;
                 }
             }
+//            while (resultSet.next()) {
+//                if (user.getEmail().equals(resultSet.getString("email"))) {
+//                    result = true;
+//                }
+//            }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -168,10 +169,6 @@ public class UserDao extends User {
             throwables.printStackTrace();
         }
         return result;
-    }
-
-    public UserDao(String userName, String email, String password) {
-        super(userName, email, password);
     }
 
     public String hashPassword(String password) {

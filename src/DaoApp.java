@@ -13,21 +13,21 @@ public class DaoApp {
             throwables.printStackTrace();
         }
 //        /*Testowanie addUser*/
-//        UserDao Dao2 = new UserDao();
-//        User tomek = new User("tomek", "tomek@wp.pl", "qwerty");
-//        User marcin = new User("marcin", "marcin@interia.pl", "asddfgg");
-//        User karol = new User("karol", "karol@interia.pl", "zxcvbn");
-//        User Slawek = new User("Slawek", "Slawek@inters gitia.pl", "ghjkl;'");
-//        User Adam = new User("Adam", "Adam@interia.pl", "nxzcvhjgasd");
-//        User Mariusz = new User("Mariusz", "Mariusz@interia.pl", "uytfdgcvbhjkiou8y7gh");
-//        User Krystian = new User("Krystian", "Krystian@interia.pl", "123456uyjthgbf");
-//        Dao2.addUserToDB(tomek);
-//        Dao2.addUserToDB(marcin);
-//        Dao2.addUserToDB(karol);
-//        Dao2.addUserToDB(Slawek);
-//        Dao2.addUserToDB(Adam);
-//        Dao2.addUserToDB(Mariusz);
-//        Dao2.addUserToDB(Krystian);
+        UserDao Dao2 = new UserDao();
+        User tomek = new User("tomek", "tomek@wp.pl", "qwerty");
+        User marcin = new User("marcin", "marcin@interia.pl", "asddfgg");
+        User karol = new User("karol", "karol@interia.pl", "zxcvbn");
+        User Slawek = new User("Slawek", "Slawek@inters gitia.pl", "ghjkl;'");
+        User Adam = new User("Adam", "Adam@interia.pl", "nxzcvhjgasd");
+        User Mariusz = new User("Mariusz", "Mariusz@interia.pl", "uytfdgcvbhjkiou8y7gh");
+        User Krystian = new User("Krystian", "Krystian@interia.pl", "123456uyjthgbf");
+        Dao2.addUserToDB(tomek);
+        Dao2.addUserToDB(marcin);
+        Dao2.addUserToDB(karol);
+        Dao2.addUserToDB(Slawek);
+        Dao2.addUserToDB(Adam);
+        Dao2.addUserToDB(Mariusz);
+        Dao2.addUserToDB(Krystian);
 //        /*----------------------------------------------*/
         /*Testowanie read*/
 //        UserDao userdao1 = new UserDao();
@@ -35,23 +35,19 @@ public class DaoApp {
         /*----------------------------------------------*/
         /*Testowanie update*/
 //        UserDao userDao = new UserDao();
-//        User readTest = userDao.read(1);
-//        tomek.setUserName("konrad");
-//        tomek.setEmail("konrad@o2.pl");
-//        userDao.update(tomek);
-//        readTest = userDao.read(1);
+//        User readTest = userDao.read(2);
+//        readTest.setUserName("konrad");
+//        readTest.setEmail("konrad@o2.pl");
+//        userDao.update(readTest);
+//        userDao.read(2);
 //        /*----------------------------------------------*/
         /*Testowanie delete*/
 //        UserDao userDao = new UserDao();
-//        userDao.delete(1);
+//        userDao.delete(11112);
         /*----------------------------------------------*/
         /*Testowanie findAll*/
 //        UserDao userDao = new UserDao();
-//        User[] usersArr = new User[0];
-//        usersArr = userDao.findAll();
-//        for (int i = 0; i < usersArr.length; i++) {
-//            usersArr[i].toString();
-//        }
+//        User[] usersArr = userDao.findAll();
     }
 }
 
