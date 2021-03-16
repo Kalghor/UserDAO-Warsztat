@@ -3,13 +3,17 @@ import pl.coderslab.entity.DBUtils;
 import pl.coderslab.entity.User;
 import pl.coderslab.entity.UserDao;
 
+import javax.xml.crypto.Data;
+import java.io.FileNotFoundException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class App {
-    public static final String[] MENU_OPTIONS = {"Add User", "Remove User", "Update User", "Show User", "Show all Users","Quit"};
+    public static final String[] MENU_OPTIONS = {"Add User", "Remove User", "Update User", "Show User", "Show all Users","Save data in csv","Load data from csv","Quit"};
     public static final String PATTERN_EMAIL = "[_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*\\.([a-zA-Z]{2,}){1}";
     public static final String PATTERN_PASSWORD = "(^[A-Z])[A-Za-z0-9]{3,15}";
     public static final String PATTERN_USERNAME = "[A-Za-z0-9_-]{3,16}";
@@ -86,6 +90,26 @@ public class App {
                     break;
                 }
                 case "6":
+                case "save data in csv": {
+                    System.out.println("");
+                    User[] userArr = userDao.findAll();
+                    userDao.saveDataToFile(userArr);
+                    System.out.println("");
+                    break;
+                }
+                case "7":
+                case "load data from csv": {
+                    System.out.println("");
+                    Path path = Paths.get("Data.csv");
+                    try {
+                        userDao.loadDataToDatabase(path);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("");
+                    break;
+                }
+                case "8":
                 case "quit": {
                     primaryLoop = false;
                     break;
@@ -115,6 +139,7 @@ public class App {
     }
 
     private static User createUser(){
+        UserDao userDao = new UserDao();
         Scanner scan = new Scanner(System.in);
         String userName = "";
         String userEmail = "";
@@ -146,7 +171,7 @@ public class App {
                 System.out.println("You entered wrong password! Try again");
             }
         }
-        User user = new User(userName,userEmail,userPassword);
+        User user = new User(userName,userEmail,userDao.hashPassword(userPassword));
         return user;
     }
 }

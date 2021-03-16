@@ -2,8 +2,16 @@ package pl.coderslab.entity;
 
 import com.mysql.cj.protocol.Resultset;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.*;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class UserDao extends User {
 
@@ -12,7 +20,6 @@ public class UserDao extends User {
     private static final String UPDATE_USER_QUERY = "UPDATE users SET username = ?, email = ?, password = ? WHERE id = ?";
     private static final String DELETE_USER_QUERY = "DELETE FROM users WHERE id = ?";
     public static final String SELECT_USER = "SELECT * FROM users WHERE email=";
-    public static final String SELECT_PART_DATA_QUERY = "SELECT * FROM users WHERE id BETWEEN ? AND ? LIMIT 5";
     public static final String SELECT_USER_BY_ID = "SELECT * FROM users WHERE id =";
 
     public UserDao() {
@@ -25,7 +32,7 @@ public class UserDao extends User {
                 ResultSet resultSet = stm.executeQuery(SELECT_USER + "\'" + user.getEmail() + "\'");
                 resultSet.next();
                 user.setId(resultSet.getInt("id"));
-                System.out.println(ConsoleColors.PURPLE_BRIGHT + "Uzytkownik o id = " + user.getId() + " juz znajduje sie w bazie.");
+                System.out.println(ConsoleColors.PURPLE_BRIGHT + "User with id = " + user.getId() + " already exists in the database.");
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -34,13 +41,13 @@ public class UserDao extends User {
                  PreparedStatement preparedStatement = connection.prepareStatement(CREATE_USER_QUERY, PreparedStatement.RETURN_GENERATED_KEYS)) {
                 preparedStatement.setString(1, user.getUserName());
                 preparedStatement.setString(2, user.getEmail());
-                preparedStatement.setString(3, hashPassword(user.getPassword()));
+                preparedStatement.setString(3, user.getPassword());
                 preparedStatement.executeUpdate();
                 ResultSet rs = preparedStatement.getGeneratedKeys();
                 if (rs.next()) {
                     user.setId(rs.getInt(1));
                 }
-                System.out.println(ConsoleColors.PURPLE_BRIGHT + "Dodano uzytkownika o id = " + user.getId());
+                System.out.println(ConsoleColors.PURPLE_BRIGHT + "Added user with id = " + user.getId());
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
@@ -60,7 +67,7 @@ public class UserDao extends User {
                 user.toString();
                 return user;
             } else {
-                System.out.println(ConsoleColors.PURPLE_BRIGHT +  "Rekord nie istnieje w bazie");
+                System.out.println(ConsoleColors.PURPLE_BRIGHT + "The record does not exist in the database");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -81,11 +88,12 @@ public class UserDao extends User {
                 preparedStatement.setString(3, hashPassword(password));
                 preparedStatement.setInt(4, id);
                 preparedStatement.executeUpdate();
+                System.out.println(ConsoleColors.PURPLE_BRIGHT + "Data updated.");
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
         } else {
-            System.out.println(ConsoleColors.PURPLE_BRIGHT + "Taki uzytwnik juz istnieje w bazie");
+            System.out.println(ConsoleColors.PURPLE_BRIGHT + "This user already exists in the database.");
         }
     }
 
@@ -95,12 +103,12 @@ public class UserDao extends User {
                 PreparedStatement preparedStatement = connection.prepareStatement(DELETE_USER_QUERY);
                 preparedStatement.setInt(1, userId);
                 preparedStatement.executeUpdate();
-                System.out.println(ConsoleColors.PURPLE_BRIGHT + "Usunieto rekord z bazy");
+                System.out.println(ConsoleColors.PURPLE_BRIGHT + "Record deleted from database");
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
         } else {
-            System.out.println(ConsoleColors.PURPLE_BRIGHT + "Taki rekord nie istnieje w bazie!");
+            System.out.println(ConsoleColors.PURPLE_BRIGHT + "The record does not exist in the database.");
         }
     }
 
@@ -128,6 +136,45 @@ public class UserDao extends User {
         User[] usersTmp = Arrays.copyOf(users, users.length + 1);
         usersTmp[usersTmp.length - 1] = user;
         return usersTmp;
+    }
+
+    public static void saveDataToFile(User[] userArr) {
+        File file = new File("Data.csv");
+        Path path = Paths.get("Data.csv");
+        if (!file.exists()) {
+            try {
+                Files.createFile(path);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        try (PrintWriter pw = new PrintWriter(file);) {
+            for (int i = 0; i < userArr.length; i++) {
+                pw.println(userArr[i].getId() + "," + userArr[i].getUserName() + "," + userArr[i].getEmail() + "," + userArr[i].getPassword());
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadDataToDatabase(Path path) throws FileNotFoundException {
+        File file = new File(String.valueOf(path));
+        Scanner scan = new Scanner(file);
+        UserDao userDao = new UserDao();
+        if(Files.exists(path)){
+            file = new File(String.valueOf(path));
+            while (scan.hasNext()){
+                String line = scan.nextLine();
+                String[] userArr = line.split(",");
+                //userArr[1] - userName
+                //userArr[2] - userEmail
+                //userArr[3] - userPassword
+                User user = new User(userArr[1],userArr[2],userArr[3]);
+                userDao.addUserToDB(user);
+            }
+        } else {
+            System.out.println("File does not exist!");
+        }
     }
 
     public Boolean isExist(User user) {
@@ -181,7 +228,7 @@ public class UserDao extends User {
         }
         for (int i = 0; i < usersArr.length; i++) {
             String userId = String.valueOf(usersArr[i].getId());
-            if(usersArr[i].getId() < 10){
+            if (usersArr[i].getId() < 10) {
                 userId = "0" + String.valueOf(usersArr[i].getId());
             }
             String userName = usersArr[i].getUserName();
@@ -191,9 +238,9 @@ public class UserDao extends User {
                     + userId + "," + "".replace("", " ".repeat(maxLengthOfUsersId - LengthOfUserID + 2))
                     + "userName = " + usersArr[i].getUserName() + "," + "".replace("", " ".repeat(maxLengthOfUsersName - LengthOfUserName + 2))
                     + "email = " + usersArr[i].getPassword();
-            if(i % 2 == 0){
+            if (i % 2 == 0) {
                 result = ConsoleColors.BLUE_BRIGHT + result;
-            } else if(i % 1 == 0){
+            } else if (i % 1 == 0) {
                 result = ConsoleColors.YELLOW_BRIGHT + result;
             }
             System.out.println(result);
