@@ -8,6 +8,14 @@ target/*
 *.iml
 /target
 
+*.class
+*.jar
+*.war
+*.ear
+*.logs
+.idea/
+.eclipse
+
 # Compiled class file
 *.class
 
