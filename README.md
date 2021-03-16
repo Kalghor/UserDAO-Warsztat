@@ -1,4 +1,4 @@
-# UserDAO-WorkShop
+# WorkShop - DAO Pattern
 
 Application for managing a table in a database. The application implements the DAO pattern. Communication with the database via MySQL.
 
