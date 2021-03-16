@@ -21,6 +21,7 @@ public class UserDao extends User {
     private static final String DELETE_USER_QUERY = "DELETE FROM users WHERE id = ?";
     public static final String SELECT_USER = "SELECT * FROM users WHERE email=";
     public static final String SELECT_USER_BY_ID = "SELECT * FROM users WHERE id =";
+    public static final String PATH_TO_SAVE_AND_LOAD_DATA = "Data.csv";
 
     public UserDao() {
     }
@@ -139,8 +140,8 @@ public class UserDao extends User {
     }
 
     public static void saveDataToFile(User[] userArr) {
-        File file = new File("Data.csv");
-        Path path = Paths.get("Data.csv");
+        File file = new File(PATH_TO_SAVE_AND_LOAD_DATA);
+        Path path = Paths.get(PATH_TO_SAVE_AND_LOAD_DATA);
         if (!file.exists()) {
             try {
                 Files.createFile(path);

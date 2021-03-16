@@ -100,7 +100,7 @@ public class App {
                 case "7":
                 case "load data from csv": {
                     System.out.println("");
-                    Path path = Paths.get("Data.csv");
+                    Path path = Paths.get(UserDao.PATH_TO_SAVE_AND_LOAD_DATA);
                     try {
                         userDao.loadDataToDatabase(path);
                     } catch (FileNotFoundException e) {
