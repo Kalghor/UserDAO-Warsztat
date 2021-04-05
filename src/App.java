@@ -3,7 +3,6 @@ import pl.coderslab.entity.DBUtils;
 import pl.coderslab.entity.User;
 import pl.coderslab.entity.UserDao;
 
-import javax.xml.crypto.Data;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
