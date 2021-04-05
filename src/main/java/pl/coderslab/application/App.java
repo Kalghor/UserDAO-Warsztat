@@ -1,12 +1,13 @@
-import pl.coderslab.entity.ConsoleColors;
-import pl.coderslab.entity.DBUtils;
+package pl.coderslab.application;
+
 import pl.coderslab.entity.User;
 import pl.coderslab.entity.UserDao;
+import pl.coderslab.entity.ConsoleColors;
+
 
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.SQLException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,14 +18,6 @@ public class App {
     public static final String PATTERN_PASSWORD = "(^[A-Z])[A-Za-z0-9]{3,15}";
     public static final String PATTERN_USERNAME = "[A-Za-z0-9_-]{3,16}";
 
-    public static void main(String[] args) {
-        try {
-            DBUtils.createDB();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        App.run();
-    }
 
     public static void run() {
         UserDao userDao = new UserDao();

@@ -1,7 +1,5 @@
 package pl.coderslab.entity;
 
-import com.mysql.cj.protocol.Resultset;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -139,7 +137,7 @@ public class UserDao extends User {
         return usersTmp;
     }
 
-    public static void saveDataToFile(User[] userArr) {
+    public void saveDataToFile(User[] userArr) {
         File file = new File(PATH_TO_SAVE_AND_LOAD_DATA);
         Path path = Paths.get(PATH_TO_SAVE_AND_LOAD_DATA);
         if (!file.exists()) {
@@ -158,19 +156,19 @@ public class UserDao extends User {
         }
     }
 
-    public static void loadDataToDatabase(Path path) throws FileNotFoundException {
+    public void loadDataToDatabase(Path path) throws FileNotFoundException {
         File file = new File(String.valueOf(path));
         Scanner scan = new Scanner(file);
         UserDao userDao = new UserDao();
-        if(Files.exists(path)){
+        if (Files.exists(path)) {
             file = new File(String.valueOf(path));
-            while (scan.hasNext()){
+            while (scan.hasNext()) {
                 String line = scan.nextLine();
                 String[] userArr = line.split(",");
                 //userArr[1] - userName
                 //userArr[2] - userEmail
                 //userArr[3] - userPassword
-                User user = new User(userArr[1],userArr[2],userArr[3]);
+                User user = new User(userArr[1], userArr[2], userArr[3]);
                 userDao.addUserToDB(user);
             }
         } else {
