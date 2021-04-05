@@ -77,7 +77,7 @@ public class App {
                 case "5":
                 case "show all users": {
                     System.out.println("");
-                    userDao.ShowAllUsers(userDao.findAll());
+                    showAllUsers(userDao.findAll());
                     System.out.println("");
                     break;
                 }
@@ -165,5 +165,39 @@ public class App {
         }
         User user = new User(userName,userEmail,userDao.hashPassword(userPassword));
         return user;
+    }
+
+    public static void showAllUsers(User[] usersArr) {
+        int maxLengthOfUsersId = 0;
+        int maxLengthOfUsersName = 0;
+        for (int i = 0; i < usersArr.length; i++) {
+            String userId = String.valueOf(usersArr[i].getId());
+            String userName = usersArr[i].getUserName();
+            if (maxLengthOfUsersId < userId.length()) {
+                maxLengthOfUsersId = userId.length();
+            }
+            if (maxLengthOfUsersName < userName.length()) {
+                maxLengthOfUsersName = userName.length();
+            }
+        }
+        for (int i = 0; i < usersArr.length; i++) {
+            String userId = String.valueOf(usersArr[i].getId());
+            if (usersArr[i].getId() < 10) {
+                userId = "0" + String.valueOf(usersArr[i].getId());
+            }
+            String userName = usersArr[i].getUserName();
+            int LengthOfUserID = userId.length();
+            int LengthOfUserName = userName.length();
+            String result = "id = "
+                    + userId + "," + "".replace("", " ".repeat(maxLengthOfUsersId - LengthOfUserID + 2))
+                    + "userName = " + usersArr[i].getUserName() + "," + "".replace("", " ".repeat(maxLengthOfUsersName - LengthOfUserName + 2))
+                    + "email = " + usersArr[i].getPassword();
+            if (i % 2 == 0) {
+                result = ConsoleColors.BLUE_BRIGHT + result;
+            } else if (i % 1 == 0) {
+                result = ConsoleColors.YELLOW_BRIGHT + result;
+            }
+            System.out.println(result);
+        }
     }
 }
